@@ -3,3 +3,9 @@ server:
 spring:
   datasource:
     url: jdbc:sqlite:sdh
+mybatis:
+  mapper-locations: classpath:mapper/**.xml
+
+jwt:
+  secret: wttch96
+  expire-time: 3600000

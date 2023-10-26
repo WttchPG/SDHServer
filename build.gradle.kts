@@ -27,7 +27,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2")
     implementation("org.springframework.boot:spring-boot-starter-web")
-
+    // spring security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    // jwt
+    implementation("com.auth0:java-jwt:3.4.1")
     // sqlite
     implementation("org.xerial:sqlite-jdbc:3.43.2.1")
 

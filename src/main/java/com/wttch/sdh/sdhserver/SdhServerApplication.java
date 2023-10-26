@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SdhServerApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(SdhServerApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(SdhServerApplication.class, args);
+  }
 }

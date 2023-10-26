@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wttch.sdh.sdhserver.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wttch.sdh.sdhserver.entity.User">
+    <!--@mbg.generated-->
+    <!--@Table "user"-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="LONGVARCHAR" property="name" />
+    <result column="password" jdbcType="LONGVARCHAR" property="password" />
+    <result column="real_name" jdbcType="LONGVARCHAR" property="realName" />
+    <result column="tel" jdbcType="LONGVARCHAR" property="tel" />
+    <result column="email" jdbcType="LONGVARCHAR" property="email" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", "password", real_name, tel, email
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from "user"
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from "user"
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wttch.sdh.sdhserver.entity.User" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into "user" ("name", "password", real_name, 
+      tel, email)
+    values (#{name,jdbcType=LONGVARCHAR}, #{password,jdbcType=LONGVARCHAR}, #{realName,jdbcType=LONGVARCHAR}, 
+      #{tel,jdbcType=LONGVARCHAR}, #{email,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wttch.sdh.sdhserver.entity.User" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into "user"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        "name",
+      </if>
+      <if test="password != null">
+        "password",
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wttch.sdh.sdhserver.entity.User">
+    <!--@mbg.generated-->
+    update "user"
+    <set>
+      <if test="name != null">
+        "name" = #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="password != null">
+        "password" = #{password,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wttch.sdh.sdhserver.entity.User">
+    <!--@mbg.generated-->
+    update "user"
+    set "name" = #{name,jdbcType=LONGVARCHAR},
+      "password" = #{password,jdbcType=LONGVARCHAR},
+      real_name = #{realName,jdbcType=LONGVARCHAR},
+      tel = #{tel,jdbcType=LONGVARCHAR},
+      email = #{email,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user
+    WHERE name = #{username,jdbcType=VARCHAR}
+    </select>
+</mapper>
