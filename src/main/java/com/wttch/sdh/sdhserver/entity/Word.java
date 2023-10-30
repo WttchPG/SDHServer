@@ -1,6 +1,6 @@
 package com.wttch.sdh.sdhserver.entity;
 
-public class WordLibrary {
+public class Word {
     private Integer id;
 
     private String word;

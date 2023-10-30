@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wttch.sdh.sdhserver.dao.DictionaryMapper">
-    <resultMap id="BaseResultMap" type="com.wttch.sdh.sdhserver.entity.Dictionary">
+<mapper namespace="com.wttch.sdh.sdhserver.dao.WordDictionaryMapper">
+    <resultMap id="BaseResultMap" type="com.wttch.sdh.sdhserver.entity.WordDictionary">
         <!--@mbg.generated-->
-        <!--@Table "dictionary"-->
+        <!--@Table word_dictionary-->
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="LONGVARCHAR" property="name"/>
         <result column="system" jdbcType="INTEGER" property="system"/>
@@ -18,26 +18,26 @@
         <!--@mbg.generated-->
         SELECT
         <include refid="Base_Column_List"/>
-        FROM "dictionary"
+        FROM word_dictionary
         WHERE id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--@mbg.generated-->
-        DELETE FROM "dictionary"
+        DELETE FROM word_dictionary
         WHERE id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wttch.sdh.sdhserver.entity.Dictionary"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wttch.sdh.sdhserver.entity.WordDictionary"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
-        INSERT INTO "dictionary" ("name", "system", last_version,
+        INSERT INTO word_dictionary ("name", "system", last_version,
         create_by)
         VALUES (#{name,jdbcType=LONGVARCHAR}, #{system,jdbcType=INTEGER}, #{lastVersion,jdbcType=LONGVARCHAR},
         #{createBy,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
-            parameterType="com.wttch.sdh.sdhserver.entity.Dictionary" useGeneratedKeys="true">
+            parameterType="com.wttch.sdh.sdhserver.entity.WordDictionary" useGeneratedKeys="true">
         <!--@mbg.generated-->
-        INSERT INTO "dictionary"
+        INSERT INTO word_dictionary
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">
                 "name",
@@ -67,9 +67,9 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.wttch.sdh.sdhserver.entity.Dictionary">
+    <update id="updateByPrimaryKeySelective" parameterType="com.wttch.sdh.sdhserver.entity.WordDictionary">
         <!--@mbg.generated-->
-        UPDATE "dictionary"
+        UPDATE word_dictionary
         <set>
             <if test="name != null">
                 "name" = #{name,jdbcType=LONGVARCHAR},
@@ -86,9 +86,9 @@
         </set>
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.wttch.sdh.sdhserver.entity.Dictionary">
+    <update id="updateByPrimaryKey" parameterType="com.wttch.sdh.sdhserver.entity.WordDictionary">
         <!--@mbg.generated-->
-        UPDATE "dictionary"
+        UPDATE word_dictionary
         SET "name" = #{name,jdbcType=LONGVARCHAR},
         "system" = #{system,jdbcType=INTEGER},
         last_version = #{lastVersion,jdbcType=LONGVARCHAR},
@@ -99,7 +99,25 @@
     <select id="selectByUserId" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM `dictionary`
+        FROM word_dictionary
         WHERE create_by = #{userId,jdbcType=INTEGER} OR system = 1
+    </select>
+
+    <select id="selectByIds" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM word_dictionary
+        WHERE
+        <choose>
+            <when test="ids != null and ids.length != 0">
+                id IN
+                <foreach collection="ids" open="(" close=")" separator="," item="id">
+                    #{id,jdbcType=INTEGER}
+                </foreach>
+            </when>
+            <otherwise>
+                FALSE
+            </otherwise>
+        </choose>
     </select>
 </mapper>

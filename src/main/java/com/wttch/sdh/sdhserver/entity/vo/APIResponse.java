@@ -26,6 +26,6 @@ public record APIResponse<T>(int code, String message, T data) {
    * @param <T> 响应数据的类型。
    */
   public static <T> APIResponse<T> success(T data) {
-    return APIResponse.success(null, data);
+    return APIResponse.success("请求成功", data);
   }
 }
