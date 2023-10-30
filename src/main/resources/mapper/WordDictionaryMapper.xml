@@ -9,10 +9,11 @@
         <result column="system" jdbcType="INTEGER" property="system"/>
         <result column="last_version" jdbcType="LONGVARCHAR" property="lastVersion"/>
         <result column="create_by" jdbcType="INTEGER" property="createBy"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, "name", "system", last_version, create_by
+        id, "name", "system", last_version, create_by, "count"
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -30,9 +31,9 @@
             useGeneratedKeys="true">
         <!--@mbg.generated-->
         INSERT INTO word_dictionary ("name", "system", last_version,
-        create_by)
+        create_by, "count")
         VALUES (#{name,jdbcType=LONGVARCHAR}, #{system,jdbcType=INTEGER}, #{lastVersion,jdbcType=LONGVARCHAR},
-        #{createBy,jdbcType=INTEGER})
+        #{createBy,jdbcType=INTEGER}, #{count,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
             parameterType="com.wttch.sdh.sdhserver.entity.WordDictionary" useGeneratedKeys="true">
@@ -51,6 +52,9 @@
             <if test="createBy != null">
                 create_by,
             </if>
+            <if test="count != null">
+                "count",
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null">
@@ -64,6 +68,9 @@
             </if>
             <if test="createBy != null">
                 #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -83,6 +90,9 @@
             <if test="createBy != null">
                 create_by = #{createBy,jdbcType=INTEGER},
             </if>
+            <if test="count != null">
+                "count" = #{count,jdbcType=INTEGER},
+            </if>
         </set>
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
@@ -92,7 +102,8 @@
         SET "name" = #{name,jdbcType=LONGVARCHAR},
         "system" = #{system,jdbcType=INTEGER},
         last_version = #{lastVersion,jdbcType=LONGVARCHAR},
-        create_by = #{createBy,jdbcType=INTEGER}
+        create_by = #{createBy,jdbcType=INTEGER},
+        "count" = #{count,jdbcType=INTEGER}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
@@ -100,7 +111,8 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM word_dictionary
-        WHERE create_by = #{userId,jdbcType=INTEGER} OR system = 1
+        WHERE create_by = #{userId,jdbcType=INTEGER}
+        OR system = 1
     </select>
 
     <select id="selectByIds" resultMap="BaseResultMap">
@@ -111,7 +123,7 @@
         <choose>
             <when test="ids != null and ids.length != 0">
                 id IN
-                <foreach collection="ids" open="(" close=")" separator="," item="id">
+                <foreach close=")" collection="ids" item="id" open="(" separator=",">
                     #{id,jdbcType=INTEGER}
                 </foreach>
             </when>

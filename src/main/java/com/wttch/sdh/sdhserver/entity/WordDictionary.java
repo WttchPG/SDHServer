@@ -11,6 +11,8 @@ public class WordDictionary {
 
   private Integer createBy;
 
+  private Integer count;
+
   public Integer getId() {
     return id;
   }
@@ -49,5 +51,13 @@ public class WordDictionary {
 
   public void setCreateBy(Integer createBy) {
     this.createBy = createBy;
+  }
+
+  public Integer getCount() {
+    return count;
+  }
+
+  public void setCount(Integer count) {
+    this.count = count;
   }
 }
