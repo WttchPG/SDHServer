@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wttch.sdh.sdhserver.dao.DictionaryMapper">
+    <resultMap id="BaseResultMap" type="com.wttch.sdh.sdhserver.entity.Dictionary">
+        <!--@mbg.generated-->
+        <!--@Table "dictionary"-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="LONGVARCHAR" property="name"/>
+        <result column="system" jdbcType="INTEGER" property="system"/>
+        <result column="last_version" jdbcType="LONGVARCHAR" property="lastVersion"/>
+        <result column="create_by" jdbcType="INTEGER" property="createBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, "name", "system", last_version, create_by
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM "dictionary"
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        DELETE FROM "dictionary"
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wttch.sdh.sdhserver.entity.Dictionary"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        INSERT INTO "dictionary" ("name", "system", last_version,
+        create_by)
+        VALUES (#{name,jdbcType=LONGVARCHAR}, #{system,jdbcType=INTEGER}, #{lastVersion,jdbcType=LONGVARCHAR},
+        #{createBy,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.wttch.sdh.sdhserver.entity.Dictionary" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        INSERT INTO "dictionary"
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                "name",
+            </if>
+            <if test="system != null">
+                "system",
+            </if>
+            <if test="lastVersion != null">
+                last_version,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="system != null">
+                #{system,jdbcType=INTEGER},
+            </if>
+            <if test="lastVersion != null">
+                #{lastVersion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wttch.sdh.sdhserver.entity.Dictionary">
+        <!--@mbg.generated-->
+        UPDATE "dictionary"
+        <set>
+            <if test="name != null">
+                "name" = #{name,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="system != null">
+                "system" = #{system,jdbcType=INTEGER},
+            </if>
+            <if test="lastVersion != null">
+                last_version = #{lastVersion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wttch.sdh.sdhserver.entity.Dictionary">
+        <!--@mbg.generated-->
+        UPDATE "dictionary"
+        SET "name" = #{name,jdbcType=LONGVARCHAR},
+        "system" = #{system,jdbcType=INTEGER},
+        last_version = #{lastVersion,jdbcType=LONGVARCHAR},
+        create_by = #{createBy,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `dictionary`
+        WHERE create_by = #{userId,jdbcType=INTEGER} OR system = 1
+    </select>
+</mapper>

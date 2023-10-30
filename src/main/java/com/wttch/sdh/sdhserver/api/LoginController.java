@@ -1,20 +1,18 @@
 package com.wttch.sdh.sdhserver.api;
 
 import com.wttch.sdh.sdhserver.component.JwtTokenProvider;
-import com.wttch.sdh.sdhserver.component.SdhUserDetails;
 import com.wttch.sdh.sdhserver.entity.User;
 import com.wttch.sdh.sdhserver.entity.payload.LoginPayload;
 import com.wttch.sdh.sdhserver.entity.vo.APIResponse;
 import jakarta.annotation.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 /** 登录接口 */
 @RestController
 @RequestMapping("/auth")
-public class LoginController {
+public class LoginController extends AbstractController {
 
   @Resource private AuthenticationManager authenticationManager;
 
@@ -42,12 +40,10 @@ public class LoginController {
 
   /**
    * 获取登录的用户信息
-   *
-   * @param userDetail 登录的用户信息，spring 自动装配的
    */
-  @GetMapping("user")
-  public APIResponse<User> userinfo(@AuthenticationPrincipal SdhUserDetails userDetail) {
-    var user = userDetail.getUser();
+  @PostMapping("user")
+  public APIResponse<User> userinfo() {
+    var user = currentUser();
     // 脱敏密码
     user.setPassword(null);
     return APIResponse.success(user);
