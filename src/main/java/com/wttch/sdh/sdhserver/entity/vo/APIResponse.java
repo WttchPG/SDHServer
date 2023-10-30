@@ -3,7 +3,7 @@ package com.wttch.sdh.sdhserver.entity.vo;
 public record APIResponse<T>(int code, String message, T data) {
 
   public static APIResponse<String> error(int code, String message) {
-    return new APIResponse<>(code, message, "");
+    return new APIResponse<>(code, message, null);
   }
 
   /**

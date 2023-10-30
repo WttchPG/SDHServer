@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.Date;
@@ -104,5 +105,9 @@ public class JwtTokenProvider {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  public boolean isLogin(ServletRequest request) {
+    return "/auth/login".equals(((HttpServletRequest) request).getRequestURI());
   }
 }
